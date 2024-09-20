@@ -1,0 +1,7 @@
+Executable : /Users/justin/Library/Android/sdk/cmake/3.22.1/bin/ninja
+arguments : 
+-C
+/Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/debug/arm64-v8a
+native-audio-jni
+jvmArgs : 
+

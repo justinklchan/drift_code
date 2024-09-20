@@ -1,0 +1,79 @@
+[
+  {
+    "level": "INFO",
+    "message": "Start JSON generation. Platform version: 23 min SDK version: x86",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  },
+  {
+    "level": "INFO",
+    "message": "rebuilding JSON /Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/release/x86/android_gradle_build.json due to:",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  },
+  {
+    "level": "INFO",
+    "message": "- expected json /Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/release/x86/android_gradle_build.json file is not present, will remove stale json folder",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  },
+  {
+    "level": "INFO",
+    "message": "- missing previous command file /Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/release/x86/build_command.txt, will remove stale json folder",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  },
+  {
+    "level": "INFO",
+    "message": "- command changed from previous, will remove stale json folder",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  },
+  {
+    "level": "INFO",
+    "message": "created folder \u0027/Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/release/x86\u0027",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  },
+  {
+    "level": "INFO",
+    "message": "executing cmake Executable : /Users/justin/Library/Android/sdk/cmake/3.22.1/bin/cmake\narguments : \n-H/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp\n-DCMAKE_FIND_ROOT_PATH\u003d/Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/release/prefab/x86/prefab\n-DCMAKE_BUILD_TYPE\u003dRelease\n-DCMAKE_TOOLCHAIN_FILE\u003d/Users/justin/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake\n-DANDROID_ABI\u003dx86\n-DANDROID_NDK\u003d/Users/justin/Library/Android/sdk/ndk/21.4.7075529\n-DANDROID_PLATFORM\u003dandroid-23\n-DCMAKE_ANDROID_ARCH_ABI\u003dx86\n-DCMAKE_ANDROID_NDK\u003d/Users/justin/Library/Android/sdk/ndk/21.4.7075529\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/justin/Downloads/underwatergps-main/Android_Project/app/build/intermediates/cmake/release/obj/x86\n-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/justin/Downloads/underwatergps-main/Android_Project/app/build/intermediates/cmake/release/obj/x86\n-DCMAKE_MAKE_PROGRAM\u003d/Users/justin/Library/Android/sdk/cmake/3.22.1/bin/ninja\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_SYSTEM_VERSION\u003d23\n-B/Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/release/x86\n-GNinja\njvmArgs : \n\n",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  },
+  {
+    "level": "INFO",
+    "message": "Executable : /Users/justin/Library/Android/sdk/cmake/3.22.1/bin/cmake\narguments : \n-H/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp\n-DCMAKE_FIND_ROOT_PATH\u003d/Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/release/prefab/x86/prefab\n-DCMAKE_BUILD_TYPE\u003dRelease\n-DCMAKE_TOOLCHAIN_FILE\u003d/Users/justin/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake\n-DANDROID_ABI\u003dx86\n-DANDROID_NDK\u003d/Users/justin/Library/Android/sdk/ndk/21.4.7075529\n-DANDROID_PLATFORM\u003dandroid-23\n-DCMAKE_ANDROID_ARCH_ABI\u003dx86\n-DCMAKE_ANDROID_NDK\u003d/Users/justin/Library/Android/sdk/ndk/21.4.7075529\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/justin/Downloads/underwatergps-main/Android_Project/app/build/intermediates/cmake/release/obj/x86\n-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/justin/Downloads/underwatergps-main/Android_Project/app/build/intermediates/cmake/release/obj/x86\n-DCMAKE_MAKE_PROGRAM\u003d/Users/justin/Library/Android/sdk/cmake/3.22.1/bin/ninja\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_SYSTEM_VERSION\u003d23\n-B/Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/release/x86\n-GNinja\njvmArgs : \n\n",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  },
+  {
+    "level": "INFO",
+    "message": "done executing cmake",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  },
+  {
+    "level": "INFO",
+    "message": "write command file /Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/release/x86/build_command.txt",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  },
+  {
+    "level": "INFO",
+    "message": "JSON generation completed without problems",
+    "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/CMakeLists.txt",
+    "tag": "release|x86",
+    "diagnosticCode": "UNKNOWN"
+  }
+]

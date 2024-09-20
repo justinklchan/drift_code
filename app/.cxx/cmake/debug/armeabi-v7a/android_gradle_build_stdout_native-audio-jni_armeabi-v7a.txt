@@ -1,0 +1,2 @@
+ninja: Entering directory `/Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/debug/armeabi-v7a'
+ninja: no work to do.

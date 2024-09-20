@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/.cxx/cmake/debug/x86_64",
+  "command": "/Users/justin/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=x86_64-none-linux-android23 --gcc-toolchain=/Users/justin/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/justin/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Dnative_audio_jni_EXPORTS -I/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/../../../../fftw3/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c99 -Wall -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles/native-audio-jni.dir/native-audio-jni.c.o -c /Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/native-audio-jni.c",
+  "file": "/Users/justin/Downloads/underwatergps-main/Android_Project/app/src/main/cpp/native-audio-jni.c"
+}
+]
