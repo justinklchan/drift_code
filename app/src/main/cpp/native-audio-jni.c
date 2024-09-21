@@ -946,14 +946,63 @@ void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 {
     assert(bq == recorderBufferQueue);
     mycontext* cxt=(mycontext*)context;
-//    cxt->mic_ts[micCounter++] = now_ms();
     cxt->mic_ts[micCounter++] = currentTimeInNanos();
+
+//    int offset=0;
+//    // determine whether top/bottom microphone is the odd/even sample in the buffer
+//    if (smallBufferIdx==0) {
+//        int maxval1=0;
+//        int maxval2=0;
+//
+//        int counter=0;
+//        for (int i = 0; i < cxt->bufferSize; i++) {
+//            int val1 = cxt->bigdata[(cxt->processedSegments*cxt->bufferSize*2)+counter];
+//            int val2 = cxt->bigdata[(cxt->processedSegments*cxt->bufferSize*2)+counter+1];
+//            if (val1 > maxval1) {
+//                maxval1=val1;
+//            }
+//            if (val2 > maxval2) {
+//                maxval2=val2;
+//            }
+//            counter+=2;
+//        }
+//        __android_log_print(ANDROID_LOG_VERBOSE, "maxval", "%d %d",maxval1,maxval2);
+//        if (maxval1 > maxval2) {
+//            cxt->recorder_offset = 0;
+//        }
+//        else {
+//            cxt->recorder_offset = 1;
+//        }
+//    }
+//
+//    // we only process data from one microphone, we use the one with higher amplitude (probably bottom one)
+//    int counter=cxt->recorder_offset;
+//////    __android_log_print(ANDROID_LOG_VERBOSE, "debug5", "copy %d %d %d %d",smallBufferIdx,cxt->bufferSize,smallBufferIdx*cxt->bufferSize,smallBufferIdx*cxt->bufferSize*2);
+//    for (int i = 0; i < cxt->bufferSize; i++) {
+////        cxt->data[smallBufferIdx*cxt->bufferSize+i] = cxt->bigdata[(smallBufferIdx*cxt->bufferSize*2)+counter];
+//        counter+=2;
+//    }
+//    smallBufferIdx+=1;
+
     if (cxt->queuedSegments<cxt->totalSegments) {
         SLresult result=(*recorderBufferQueue)->Enqueue(recorderBufferQueue,
                                                         (cxt->bigdata)+(cxt->bufferSize*2*cxt->queuedSegments),
                                                         cxt->bufferSize*2*sizeof(short));
         assert(SL_RESULT_SUCCESS == result);
         cxt->queuedSegments+=1;
+    }
+    else {
+        FILE* fp = fopen(cxt->bottomfilename,"w+");
+        for (int i = 0; i < cxt->totalSegments*cxt->bufferSize*2-2; i+=2) {
+            fprintf(fp,"%d ",cxt->bigdata[i]);
+        }
+        fclose(fp);
+
+        fp = fopen(cxt->topfilename,"w+");
+        for (int i = 1; i < cxt->totalSegments*cxt->bufferSize*2-2; i+=2) {
+            fprintf(fp,"%d ",cxt->bigdata[i]);
+        }
+        fclose(fp);
     }
 }
 
@@ -1304,13 +1353,13 @@ Java_com_example_nativeaudio_NativeAudio_createAudioRecorder(JNIEnv* env, jclass
 
     SLresult result;
 
-    int numchannels=2;
-    int mics=0;
-    if (numchannels==1) {
-        mics=SL_SPEAKER_FRONT_CENTER;
+    int numspkchannels=2;
+    int spks=0;
+    if (numspkchannels==1) {
+        spks=SL_SPEAKER_FRONT_CENTER;
     }
     else {
-        mics=SL_SPEAKER_FRONT_LEFT | SL_SPEAKER_FRONT_RIGHT;
+        spks=SL_SPEAKER_FRONT_LEFT | SL_SPEAKER_FRONT_RIGHT;
     }
 
     // configure audio source
@@ -1319,9 +1368,9 @@ Java_com_example_nativeaudio_NativeAudio_createAudioRecorder(JNIEnv* env, jclass
     SLDataSource audioSrc = {&loc_dev, NULL};
 
     SLDataLocator_AndroidSimpleBufferQueue loc_bq = {SL_DATALOCATOR_ANDROIDSIMPLEBUFFERQUEUE, 1};
-    SLDataFormat_PCM format_pcm = {SL_DATAFORMAT_PCM, numchannels, SL_SAMPLINGRATE_44_1,
+    SLDataFormat_PCM format_pcm = {SL_DATAFORMAT_PCM, numspkchannels, SL_SAMPLINGRATE_44_1,
                                    SL_PCMSAMPLEFORMAT_FIXED_16, SL_PCMSAMPLEFORMAT_FIXED_16,
-                                   mics, SL_BYTEORDER_LITTLEENDIAN};
+                                   spks, SL_BYTEORDER_LITTLEENDIAN};
     if (FS==48000) {
         format_pcm.samplesPerSec=SL_SAMPLINGRATE_48;
     }
@@ -1475,7 +1524,9 @@ Java_com_example_nativeaudio_NativeAudio_reset(JNIEnv *env, jclass clazz) {
 //                                                   jstring speaker_ts_fname, int bigBufferSize,int bigBufferTimes,int numSym, int calibWait) {
 JNIEXPORT void JNICALL
     Java_com_example_nativeaudio_NativeAudio_calibrate(JNIEnv *env, jclass clazz, jint fs,
-                                                       jint bSize_spk, jint bSize_mic, jint recordTime) {
+                                                       jint bSize_spk, jint bSize_mic, jint recordTime,
+                                                       jint bigBufferSize,jint bigBufferTimes,
+                                                       jstring ttfilename, jstring tbfilename) {
     int round0 = 0;
     smallBufferIdx=0;
     micCounter=0;
@@ -1554,8 +1605,8 @@ JNIEXPORT void JNICALL
 //    }
 //
 //    ///////////////////////////////////////////////////////////////////////////////////
-//    char* topfilename = (*env)->GetStringUTFChars(env, ttfilename, NULL);
-//    char* bottomfilename = (*env)->GetStringUTFChars(env, tbfilename, NULL);
+    char* topfilename = (*env)->GetStringUTFChars(env, ttfilename, NULL);
+    char* bottomfilename = (*env)->GetStringUTFChars(env, tbfilename, NULL);
 //    char* meta_filename = (*env)->GetStringUTFChars(env, tmeta_filename, NULL);
 //    char* mic_ts_filename_str = (*env)->GetStringUTFChars(env, mic_ts_fname, NULL);
 //
@@ -1574,8 +1625,8 @@ JNIEXPORT void JNICALL
 //    if (round==round0) {
         cxt2 = calloc(1, sizeof(mycontext));
         cxt2->bigdata = calloc(bufferSize_mic * 2 * totalRecorderLoops, sizeof(short));
-//        cxt2->data = calloc(bufferSize_mic * totalRecorderLoops, sizeof(short));
-//        cxt2->dataSize = bufferSize_mic*totalRecorderLoops;
+        cxt2->data = calloc(bufferSize_mic * totalRecorderLoops, sizeof(short));
+        cxt2->dataSize = bufferSize_mic*totalRecorderLoops;
 //    }
 //    else {
 //        memset(cxt2->bigdata,0,bufferSize_mic * 2 * totalRecorderLoops * sizeof(short));
@@ -1586,8 +1637,8 @@ JNIEXPORT void JNICALL
 //    cxt2->env = env;
 //    cxt2->clazz = clazz;
 //    cxt2->ts_len=(recordTime*FS)/bufferSize_mic;
-//    cxt2->bigBufferSize=bigBufferSize;
-//    cxt2->bigBufferTimes=bigBufferTimes;
+    cxt2->bigBufferSize=bigBufferSize;
+    cxt2->bigBufferTimes=bigBufferTimes;
     cxt2->mic_ts = calloc((recordTime*FS)/bufferSize_mic,sizeof(long));
 //    cxt2->initialDelay = initialDelay;
 //    cxt2->xcorrthresh=xcorrthresh;
@@ -1601,9 +1652,9 @@ JNIEXPORT void JNICALL
     cxt2->totalSegments=totalRecorderLoops;
 //    cxt2->naiser=naiser;
 //    cxt2->preamble_len = preamble_len;
-//    cxt2->topfilename = topfilename;
+    cxt2->topfilename = topfilename;
 //    cxt2->processedSegments=0;
-//    cxt2->bottomfilename = bottomfilename;
+    cxt2->bottomfilename = bottomfilename;
 //    cxt2->meta_filename = meta_filename;
 //    cxt2->mic_ts_fname=mic_ts_filename_str;
     cxt2->bufferSize=bufferSize_mic;

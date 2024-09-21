@@ -33,6 +33,7 @@ import android.hardware.SensorManager;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
+import android.media.AudioTrack;
 import android.os.Build;
 import android.os.Bundle;
 //import android.support.annotation.NonNull;
@@ -115,9 +116,9 @@ public class NativeAudio extends AppCompatActivity {
         NativeAudio.createEngine();
         NativeAudio.createBufferQueueAudioPlayer(Constants.fs, Constants.bufferSize);
         int micInterface = 0;
-        if (Build.MODEL.equals("IN2020")) {
-            micInterface=1;
-        }
+//        if (Build.MODEL.equals("IN2020")) {
+//            micInterface=1;
+//        }
         Log.e("interface",micInterface+"");
         NativeAudio.createAudioRecorder(micInterface);
 
@@ -126,6 +127,7 @@ public class NativeAudio extends AppCompatActivity {
         Constants.recButton=(Button) findViewById(R.id.record);
         Constants.stopButton=(Button) findViewById(R.id.button2);
         Constants.clayout = (ConstraintLayout)findViewById(R.id.clayout);
+        Constants.tv = (TextView)findViewById(R.id.textView);
 
         Constants.init(this);
 
@@ -248,7 +250,8 @@ public class NativeAudio extends AppCompatActivity {
 //                                        float naiserThresh, float naiserShoulder,
 //                                        int win_size, int bias, int seekback, double pthresh, int round, int filenum, boolean runxcorr, int initialDelay,
 //                                        String mic_ts_fname, String speaker_ts_fname,int bigBufferSize,int bigBufferTimes, int numSym, int calibWait);
-    public static native void calibrate(int fs, int bufferSize_spk, int bufferSize_mic, int recordTime);
+    public static native void calibrate(int fs, int bufferSize_spk, int bufferSize_mic, int recordTime,
+                                        int bigBufferSize,int bigBufferTimes,String topfilename, String bottomfilename);
 
     public static native void testxcorr(double[] data, double[] refData, double[] refData2, int N0, boolean CP);
     public static native double[] getDistance(boolean reply);

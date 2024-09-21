@@ -2,6 +2,7 @@ package com.example.nativeaudio;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -207,7 +208,8 @@ public class FileOperations {
         new Thread() {
             public void run() {
                 try {
-                    String dir = av.getExternalFilesDir(null).toString();
+//                    String dir = av.getExternalFilesDir(null).toString();
+                    String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
                     writetofile(dir, buff, filename);
                 } catch (Exception e) {
                     Log.e("asdf", e.toString());

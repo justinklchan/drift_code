@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.ConditionVariable;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -140,6 +141,7 @@ public class MyTask extends AsyncTask<Void, Void, Void> {
 //        Utils.log("------------------------------");
 //        Constants.clayout.setBackgroundColor(Color.argb(255, 255, 255, 255));
         Constants.recordImu=false;
+        Constants.tv.setText(Constants.tt+"");
 //        FileOperations.writeSensorsToDisk(av,Constants.tt+"");
     }
 
@@ -151,6 +153,7 @@ public class MyTask extends AsyncTask<Void, Void, Void> {
 //        short[] data = generateCalibrationSignal(Constants.sig, begin_gap, warmup_len, gap_len,warmdown_len);
 
 //        String dir = cxt.getExternalFilesDir(null).toString();
+        String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
 //        FileOperations.writetofile_str(av,Constants.user_id+"\n"+Constants.reply,Constants.tt+"/"+Constants.tt+"_role.txt");
 
 //                try {
@@ -158,8 +161,8 @@ public class MyTask extends AsyncTask<Void, Void, Void> {
 //                } catch (Exception e) {
 //                    Log.e("asdf_sleep", e.toString());
 //                }
-//            String topfilename = dir  + "/"+Constants.tt + "/" + Constants.tt + "-" + Constants.fileID + "-top.txt";
-//            String bottomfilename = dir  + "/"+Constants.tt+ "/" + Constants.tt + "-" + Constants.fileID + "-bottom.txt";
+            String topfilename = dir  + "/" + Constants.tt + "-top.txt";
+            String bottomfilename = dir  + "/" + Constants.tt + "-bottom.txt";
 //            String meta_filename = dir  + "/"+Constants.tt+ "/" + Constants.tt + "-" + Constants.fileID + "-meta.txt";
 //            String mic_ts_filename = dir  + "/"+Constants.tt+ "/" + Constants.tt + "-" + Constants.fileID + "-mic_ts.txt";
 //            String speaker_ts_filename = dir  + "/"+Constants.tt+ "/" + Constants.tt + "-" + Constants.fileID + "-speaker_ts.txt";
@@ -190,7 +193,9 @@ public class MyTask extends AsyncTask<Void, Void, Void> {
 //                        Constants.seekback, Constants.pthresh, 0, Constants.fileID, Constants.runxcorr, init_delay,
 //                        mic_ts_filename,speaker_ts_filename,Constants.bigBufferSize,Constants.bigBufferTimes,Constants.numsym,Constants.calibWait);
         Constants.bufferSize=1260;
-        NativeAudio.calibrate(Constants.fs, Constants.bufferSize_spk, Constants.bufferSize, Constants.recTime);
+        NativeAudio.calibrate(Constants.fs, Constants.bufferSize_spk, Constants.bufferSize, Constants.recTime,
+            Constants.bigBufferSize, Constants.bigBufferTimes,topfilename, bottomfilename);
+
         try {
             Thread.sleep((int) ((Constants.recTime+1) * 1000));
         }catch(Exception e) {
