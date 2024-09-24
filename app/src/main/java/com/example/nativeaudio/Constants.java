@@ -27,6 +27,7 @@ public class Constants {
     public static boolean stop=false;
     public static boolean initsleeping=false;
     static EditText et1,et2,et3,et4,et5,et7,et10,et16; //et11,et12,
+    static EditText et13,et14;
     public static NestedScrollView sview;
     static int fs=44100;
     static float naiserThresh=0.3f, naiserShoulder=0.8f;

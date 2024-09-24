@@ -11,6 +11,7 @@ import android.os.ConditionVariable;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.EditText;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -152,8 +153,8 @@ public class MyTask extends AsyncTask<Void, Void, Void> {
 //        int warmdown_len=0;
 //        short[] data = generateCalibrationSignal(Constants.sig, begin_gap, warmup_len, gap_len,warmdown_len);
 
-//        String dir = cxt.getExternalFilesDir(null).toString();
-        String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
+        String dir = cxt.getExternalFilesDir(null).toString();
+//        String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
 //        FileOperations.writetofile_str(av,Constants.user_id+"\n"+Constants.reply,Constants.tt+"/"+Constants.tt+"_role.txt");
 
 //                try {
@@ -192,7 +193,8 @@ public class MyTask extends AsyncTask<Void, Void, Void> {
 //                        Constants.naiserThresh, Constants.naiserShoulder, Constants.win_size, Constants.bias,
 //                        Constants.seekback, Constants.pthresh, 0, Constants.fileID, Constants.runxcorr, init_delay,
 //                        mic_ts_filename,speaker_ts_filename,Constants.bigBufferSize,Constants.bigBufferTimes,Constants.numsym,Constants.calibWait);
-        Constants.bufferSize=1260;
+        Constants.bufferSize=Integer.parseInt(Constants.et14.getText().toString());
+        Constants.recTime=Integer.parseInt(Constants.et13.getText().toString());
         NativeAudio.calibrate(Constants.fs, Constants.bufferSize_spk, Constants.bufferSize, Constants.recTime,
             Constants.bigBufferSize, Constants.bigBufferTimes,topfilename, bottomfilename);
 

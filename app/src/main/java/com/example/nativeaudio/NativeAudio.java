@@ -128,7 +128,8 @@ public class NativeAudio extends AppCompatActivity {
         Constants.stopButton=(Button) findViewById(R.id.button2);
         Constants.clayout = (ConstraintLayout)findViewById(R.id.clayout);
         Constants.tv = (TextView)findViewById(R.id.textView);
-
+        Constants.et13=(EditText)findViewById(R.id.editTextNumber);
+        Constants.et14=(EditText)findViewById(R.id.editTextNumber2);
         Constants.init(this);
 
         assetManager = getAssets();
