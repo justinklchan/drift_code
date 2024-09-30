@@ -110,6 +110,7 @@ typedef struct mycontext{
     short* refData;
     char* topfilename;
     char* bottomfilename;
+    char* tsfilename;
     char* meta_filename;
     double* naiserTx1;
     double* naiserTx2;
@@ -1003,6 +1004,12 @@ void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
             fprintf(fp,"%d ",cxt->bigdata[i]);
         }
         fclose(fp);
+
+        fp = fopen(cxt->tsfilename,"w+");
+        for (int i = 1; i < micCounter; i++) {
+            fprintf(fp,"%ld\n",cxt->mic_ts[i]-cxt->mic_ts[0]);
+        }
+        fclose(fp);
     }
 }
 
@@ -1526,7 +1533,8 @@ JNIEXPORT void JNICALL
     Java_com_example_nativeaudio_NativeAudio_calibrate(JNIEnv *env, jclass clazz, jint fs,
                                                        jint bSize_spk, jint bSize_mic, jint recordTime,
                                                        jint bigBufferSize,jint bigBufferTimes,
-                                                       jstring ttfilename, jstring tbfilename) {
+                                                       jstring ttfilename, jstring tbfilename,
+                                                       jstring ttsfilename) {
     int round0 = 0;
     smallBufferIdx=0;
     micCounter=0;
@@ -1607,6 +1615,7 @@ JNIEXPORT void JNICALL
 //    ///////////////////////////////////////////////////////////////////////////////////
     char* topfilename = (*env)->GetStringUTFChars(env, ttfilename, NULL);
     char* bottomfilename = (*env)->GetStringUTFChars(env, tbfilename, NULL);
+    char* tsfilename = (*env)->GetStringUTFChars(env, ttsfilename, NULL);
 //    char* meta_filename = (*env)->GetStringUTFChars(env, tmeta_filename, NULL);
 //    char* mic_ts_filename_str = (*env)->GetStringUTFChars(env, mic_ts_fname, NULL);
 //
@@ -1655,6 +1664,7 @@ JNIEXPORT void JNICALL
     cxt2->topfilename = topfilename;
 //    cxt2->processedSegments=0;
     cxt2->bottomfilename = bottomfilename;
+    cxt2->tsfilename = tsfilename;
 //    cxt2->meta_filename = meta_filename;
 //    cxt2->mic_ts_fname=mic_ts_filename_str;
     cxt2->bufferSize=bufferSize_mic;
