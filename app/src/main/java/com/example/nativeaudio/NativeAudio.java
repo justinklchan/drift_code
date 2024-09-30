@@ -252,7 +252,7 @@ public class NativeAudio extends AppCompatActivity {
 //                                        int win_size, int bias, int seekback, double pthresh, int round, int filenum, boolean runxcorr, int initialDelay,
 //                                        String mic_ts_fname, String speaker_ts_fname,int bigBufferSize,int bigBufferTimes, int numSym, int calibWait);
     public static native void calibrate(int fs, int bufferSize_spk, int bufferSize_mic, int recordTime,
-                                        int bigBufferSize,int bigBufferTimes,String topfilename, String bottomfilename);
+                                        int bigBufferSize,int bigBufferTimes,String topfilename, String bottomfilename, String tsfilename);
 
     public static native void testxcorr(double[] data, double[] refData, double[] refData2, int N0, boolean CP);
     public static native double[] getDistance(boolean reply);

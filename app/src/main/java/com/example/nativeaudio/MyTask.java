@@ -163,7 +163,8 @@ public class MyTask extends AsyncTask<Void, Void, Void> {
 //                    Log.e("asdf_sleep", e.toString());
 //                }
             String topfilename = dir  + "/" + Constants.tt + "-top.txt";
-            String bottomfilename = dir  + "/" + Constants.tt + "-bottom.txt";
+        String bottomfilename = dir  + "/" + Constants.tt + "-bottom.txt";
+        String tsfilename = dir  + "/" + Constants.tt + "-ts.txt";
 //            String meta_filename = dir  + "/"+Constants.tt+ "/" + Constants.tt + "-" + Constants.fileID + "-meta.txt";
 //            String mic_ts_filename = dir  + "/"+Constants.tt+ "/" + Constants.tt + "-" + Constants.fileID + "-mic_ts.txt";
 //            String speaker_ts_filename = dir  + "/"+Constants.tt+ "/" + Constants.tt + "-" + Constants.fileID + "-speaker_ts.txt";
@@ -196,7 +197,7 @@ public class MyTask extends AsyncTask<Void, Void, Void> {
         Constants.bufferSize=Integer.parseInt(Constants.et14.getText().toString());
         Constants.recTime=Integer.parseInt(Constants.et13.getText().toString());
         NativeAudio.calibrate(Constants.fs, Constants.bufferSize_spk, Constants.bufferSize, Constants.recTime,
-            Constants.bigBufferSize, Constants.bigBufferTimes,topfilename, bottomfilename);
+            Constants.bigBufferSize, Constants.bigBufferTimes,topfilename, bottomfilename, tsfilename);
 
         try {
             Thread.sleep((int) ((Constants.recTime+1) * 1000));
